@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: raw  
+    database: grounded-access-456814-a2
+    schema: gz_raw_data 
+
+    tables:
+      - name: sales       
+        table_name: raw_gz_sales
+
+      - name: product     
+        table_name: raw_gz_product
+
+      - name: ship
+        table_name: raw_gz_ship 
+
