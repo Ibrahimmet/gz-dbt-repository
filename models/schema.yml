@@ -1,0 +1,67 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: gz_raw_data
+    description: >
+      Raw data schema for Greenweez, including sales, product, and shipping datasets.
+
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+        description: Sales data for Greenweez — one row per product in each order.
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        freshness:
+          warn_after: { count: 90, period: day }
+        columns:
+          - name: date_date
+            description: Date the order was placed.
+          - name: orders_id
+            description: Unique identifier for each customer order.
+            tests:
+              - not_null
+          - name: pdt_id
+            description: Identifier of the product sold in the order.
+            tests:
+              - not_null
+          - name: revenue
+            description: Revenue generated for the line item.
+          - name: quantity
+            description: Quantity of the product sold.
+        tests:
+          - unique: 
+              column_name: "(orders_id || '-' || pdt_id)"
+      - name: product
+        identifier: raw_gz_product
+        description: List of Greenweez products, including category and pricing info.
+        columns:
+          - name: products_id
+            description: Unique identifier for each product.
+            tests:
+              - unique
+              - not_null
+          - name: name
+            description: Name of the product.
+          - name: category
+            description: Product category.
+          - name: purchSE_PRICE
+            description: Raw purchase price column (note the typo in original source).
+
+      - name: ship
+        identifier: raw_gz_ship
+        description: Shipping data for orders including fees and costs.
+        columns:
+          - name: orders_id
+            description: Order ID associated with the shipment.
+            tests:
+              - not_null
+          - name: shipping_fee
+            description: Customer-facing shipping fee.
+          - name: shipping_fee_1
+            description: Duplicate of shipping_fee — to be removed or validated.
+          - name: logCost
+            description: Internal logistics cost.
+          - name: ship_cost
+            description: Shipping cost stored as a string.
+
+
