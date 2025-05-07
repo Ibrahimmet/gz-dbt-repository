@@ -1,5 +1,6 @@
 version: 2
 
+# Old Sources (Greenweez data)
 sources:
   - name: raw
     schema: gz_raw_data
@@ -64,4 +65,34 @@ sources:
           - name: ship_cost
             description: Shipping cost stored as a string.
 
+  - name: raw_gz_adwords
+    description: "Adwords campaign data"
+    tables:
+      - name: raw_gz_adwords
+        description: "Raw Adwords data for campaigns"
+        identifier: raw_gz_adwords
+        alias: adwords_campaign
 
+  - name: raw_gz_bing
+    description: "Bing campaign data"
+    tables:
+      - name: raw_gz_bing
+        description: "Raw Bing data for campaigns"
+        identifier: raw_gz_bing
+        alias: bing_campaign
+
+  - name: raw_gz_criteo
+    description: "Criteo campaign data"
+    tables:
+      - name: raw_gz_criteo
+        description: "Raw Criteo data for campaigns"
+        identifier: raw_gz_criteo
+        alias: criteo_campaign
+
+  - name: raw_gz_facebook
+    description: "Facebook campaign data"
+    tables:
+      - name: raw_gz_facebook
+        description: "Raw Facebook data for campaigns"
+        identifier: raw_gz_facebook
+        alias: facebook_campaign
